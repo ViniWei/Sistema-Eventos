@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Sistema_Eventos.Models;
-using Sistema_Eventos.Database;
+using Sistema_Eventos.Data;
 
 
 namespace Sistema_Eventos.Controllers
@@ -15,7 +15,6 @@ namespace Sistema_Eventos.Controllers
         {
             try
             {
-                DbContext.atuantes.Add(atuante);
                 return Created("", atuante);
             }
             catch (Exception ex)
@@ -30,7 +29,7 @@ namespace Sistema_Eventos.Controllers
         [Route("Listar")]
         public IActionResult listar()
         {
-            return Ok(DbContext.atuantes);
+            return null;
         }
     }
 }
