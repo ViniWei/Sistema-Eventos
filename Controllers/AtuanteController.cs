@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Sistema_Eventos.Models;
 using Sistema_Eventos.Data;
-
+using Microsoft.EntityFrameworkCore;
 
 namespace Sistema_Eventos.Controllers
 {
@@ -9,27 +9,37 @@ namespace Sistema_Eventos.Controllers
     [Route("[controller]")]
     public class AtuanteController : ControllerBase
     {
-        [HttpPost]
-        [Route("Insirir")]
-        public IActionResult insirir(Atuante atuante)
+        SistemaEventosDbContext? _context;
+
+        public AtuanteController(SistemaEventosDbContext context)
         {
-            try
-            {
-                return Created("", atuante);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex);
-                return BadRequest();
-            }
-            
+            _context = context;
         }
 
         [HttpGet]
         [Route("Listar")]
-        public IActionResult listar()
+        public async Task<ActionResult<IEnumerable<Atuante>>> Listar()
         {
-            return null;
+            if (_context.Atuante is null)
+                return NotFound();
+            return await _context.Atuante.ToListAsync();
+            
         }
+
+        [HttpPost]
+        [Route("Insirir")]
+        public IActionResult Insirir(Atuante atuante)
+        {
+            try
+            {
+                _context.Add(atuante);
+                _context.SaveChanges();
+                return Created("", atuante);
+            } 
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }    
     }
 }
