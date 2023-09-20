@@ -3,38 +3,37 @@ using Sistema_Eventos.Models;
 using Sistema_Eventos.Data;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
-
 namespace Sistema_Eventos.Controllers
 {
-    public class OrganizadorController : ControllerBase
+    public class UsuarioController :  ControllerBase
     {
 
         SistemaEventosDbContext? _context;
 
-        public OrganizadorController(SistemaEventosDbContext context)
+        public UsuarioController(SistemaEventosDbContext context)
         {
             _context = context;
         }
 
         [HttpGet]
         [Route("Listar")]
-        public async Task<ActionResult<IEnumerable<Organizador>>> Listar()
+        public async Task<ActionResult<IEnumerable<Usuario>>> Listar()
         {
-            if (_context.Organizador is null)
+            if (_context.Usuario is null)
                 return NotFound();
-            return await _context.Organizador.ToListAsync();
+            return await _context.Usuario.ToListAsync();
 
         }
 
         [HttpPost]
         [Route("Inserir")]
-        public async Task<IActionResult> Insirir(Organizador organizador)
+        public async Task<IActionResult> Insirir(Usuario usuario)
         {
             try
             {
-                await _context.AddAsync(organizador);
+                await _context.AddAsync(usuario);
                 await _context.SaveChangesAsync();
-                return Created("", organizador);
+                return Created("", usuario);
             }
             catch (Exception ex)
             {
@@ -44,9 +43,9 @@ namespace Sistema_Eventos.Controllers
 
         [HttpPut]
         [Route("Alterar")]
-        public async Task<IActionResult> Alterar(Organizador organizador)
+        public async Task<IActionResult> Alterar(Usuario usuario)
         {
-            _context.Update(organizador);
+            _context.Update(usuario);
             await _context.SaveChangesAsync();
             return Ok();
         }
@@ -55,12 +54,13 @@ namespace Sistema_Eventos.Controllers
         [Route("Excluir/{id}")]
         public async Task<IActionResult> Excluir(int id)
         {
-            var organizadorTemp = await _context.Organizador.FindAsync(id);
+            var usuarioTemp = await _context.Kit.FindAsync(id);
 
-            if (organizadorTemp is null) return NotFound();
-            _context.Organizador.Remove(organizadorTemp);
+            if (usuarioTemp is null) return NotFound();
+            _context.Kit.Remove(usuarioTemp);
             await _context.SaveChangesAsync();
             return Ok();
         }
+
     }
 }
