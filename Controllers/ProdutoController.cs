@@ -6,6 +6,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Sistema_Eventos.Controllers
 {
+    [ApiController]
+    [Route("[controller]")]
     public class ProdutoController : ControllerBase
     {
 

@@ -5,6 +5,8 @@ using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 namespace Sistema_Eventos.Controllers
 {
+    [ApiController]
+    [Route("[controller]")]
     public class UsuarioController :  ControllerBase
     {
 
