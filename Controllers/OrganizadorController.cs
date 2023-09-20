@@ -6,37 +6,36 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Sistema_Eventos.Controllers
 {
-    [ApiController]
-    [Route("[controller]")]
-    public class AtuanteController : ControllerBase
+    public class OrganizadorController : ControllerBase
     {
+
         SistemaEventosDbContext? _context;
 
-        public AtuanteController(SistemaEventosDbContext context)
+        public OrganizadorController(SistemaEventosDbContext context)
         {
             _context = context;
         }
 
         [HttpGet]
         [Route("Listar")]
-        public async Task<ActionResult<IEnumerable<Atuante>>> Listar()
+        public async Task<ActionResult<IEnumerable<Organizador>>> Listar()
         {
-            if (_context.Atuante is null)
+            if (_context.Organizador is null)
                 return NotFound();
-            return await _context.Atuante.ToListAsync();
-            
+            return await _context.Organizador.ToListAsync();
+
         }
 
         [HttpPost]
         [Route("Insirir")]
-        public async Task<IActionResult> Insirir(Atuante atuante)
+        public async Task<IActionResult> Insirir(Organizador organizador)
         {
             try
             {
-                await _context.AddAsync(atuante);
+                await _context.AddAsync(organizador);
                 await _context.SaveChangesAsync();
-                return Created("", atuante);
-            } 
+                return Created("", organizador);
+            }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
@@ -45,9 +44,9 @@ namespace Sistema_Eventos.Controllers
 
         [HttpPut]
         [Route("Alterar")]
-        public async Task<IActionResult> Alterar(Atuante atuante)
+        public async Task<IActionResult> Alterar(Organizador organizador)
         {
-            _context.Update(atuante);
+            _context.Update(organizador);
             await _context.SaveChangesAsync();
             return Ok();
         }
@@ -56,10 +55,10 @@ namespace Sistema_Eventos.Controllers
         [Route("Excluir/{id}")]
         public async Task<IActionResult> Excluir(int id)
         {
-            var atuanteTemp = await _context.Atuante.FindAsync(id);
+            var organizadorTemp = await _context.Organizador.FindAsync(id);
 
-            if (atuanteTemp is null) return NotFound();
-            _context.Atuante.Remove(atuanteTemp);
+            if (organizadorTemp is null) return NotFound();
+            _context.Organizador.Remove(organizadorTemp);
             await _context.SaveChangesAsync();
             return Ok();
         }
