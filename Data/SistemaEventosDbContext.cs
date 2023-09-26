@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Sistema_Eventos.Controllers;
 using Sistema_Eventos.Models;
-using System.Collections.Generic;
+
 
 namespace Sistema_Eventos.Data
 {
@@ -17,7 +16,7 @@ namespace Sistema_Eventos.Data
         public DbSet<Local>? Local { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Data Source=goon-laptop03\\SQLEXPRESS;Initial Catalog=SistemaEventosDb;Integrated Security=True; trustServerCertificate=true");
+            optionsBuilder.UseMySQL("server=localhost; database=SistemaEventos;User=root;Password=toor");
         }
     }
 }
