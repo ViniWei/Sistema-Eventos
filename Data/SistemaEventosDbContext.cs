@@ -16,7 +16,7 @@ namespace Sistema_Eventos.Data
         public DbSet<Local>? Local { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseMySQL("server=localhost; database=SistemaEventos;User=root;Password=toor");
+            optionsBuilder.UseSqlite(@"Data Source=C:\SQlite\SistemaEventos.db");
         }
     }
 }
