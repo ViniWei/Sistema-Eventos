@@ -56,10 +56,10 @@ namespace Sistema_Eventos.Controllers
         [Route("Excluir/{id}")]
         public async Task<IActionResult> Excluir(int id)
         {
-            var usuarioTemp = await _context.Kit.FindAsync(id);
+            var usuarioTemp = await _context.Usuario.FindAsync(id);
 
             if (usuarioTemp is null) return NotFound();
-            _context.Kit.Remove(usuarioTemp);
+            _context.Usuario.Remove(usuarioTemp);
             await _context.SaveChangesAsync();
             return Ok();
         }

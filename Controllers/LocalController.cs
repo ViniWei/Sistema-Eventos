@@ -32,13 +32,13 @@ namespace Sistema_Eventos.Controllers
 
         [HttpPost]
         [Route("Inserir")]
-        public async Task<IActionResult> Insirir(Evento evento)
+        public async Task<IActionResult> Insirir(Local local)
         {
             try
             {
-                await _context.AddAsync(evento);
+                await _context.AddAsync(local);
                 await _context.SaveChangesAsync();
-                return Created("", evento);
+                return Created("", local);
             }
             catch (Exception ex)
             {
@@ -48,9 +48,9 @@ namespace Sistema_Eventos.Controllers
 
         [HttpPut]
         [Route("Alterar")]
-        public async Task<IActionResult> Alterar(Evento evento)
+        public async Task<IActionResult> Alterar(Local local)
         {
-            _context.Update(evento);
+            _context.Update(local);
             await _context.SaveChangesAsync();
             return Ok();
         }
@@ -59,10 +59,10 @@ namespace Sistema_Eventos.Controllers
         [Route("Excluir/{id}")]
         public async Task<IActionResult> Excluir(int id)
         {
-            var eventoTemp = await _context.Evento.FindAsync(id);
+            var localTemp = await _context.Local.FindAsync(id);
 
-            if (eventoTemp is null) return NotFound();
-            _context.Evento.Remove(eventoTemp);
+            if (localTemp is null) return NotFound();
+            _context.Local.Remove(localTemp);
             await _context.SaveChangesAsync();
             return Ok();
         }

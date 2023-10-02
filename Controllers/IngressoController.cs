@@ -20,23 +20,23 @@ namespace Sistema_Eventos.Controllers
 
         [HttpGet]
         [Route("Listar")]
-        public async Task<ActionResult<IEnumerable<Usuario>>> Listar()
+        public async Task<ActionResult<IEnumerable<Ingresso>>> Listar()
         {
-            if (_context.Usuario is null)
+            if (_context.Ingresso is null)
                 return NotFound();
-            return await _context.Usuario.ToListAsync();
+            return await _context.Ingresso.ToListAsync();
 
         }
 
         [HttpPost]
         [Route("Inserir")]
-        public async Task<IActionResult> Insirir(Usuario usuario)
+        public async Task<IActionResult> Insirir(Ingresso ingresso)
         {
             try
             {
-                await _context.AddAsync(usuario);
+                await _context.AddAsync(ingresso);
                 await _context.SaveChangesAsync();
-                return Created("", usuario);
+                return Created("", ingresso);
             }
             catch (Exception ex)
             {
@@ -46,9 +46,9 @@ namespace Sistema_Eventos.Controllers
 
         [HttpPut]
         [Route("Alterar")]
-        public async Task<IActionResult> Alterar(Usuario usuario)
+        public async Task<IActionResult> Alterar(Ingresso ingresso)
         {
-            _context.Update(usuario);
+            _context.Update(ingresso);
             await _context.SaveChangesAsync();
             return Ok();
         }
@@ -57,10 +57,10 @@ namespace Sistema_Eventos.Controllers
         [Route("Excluir/{id}")]
         public async Task<IActionResult> Excluir(int id)
         {
-            var usuarioTemp = await _context.Kit.FindAsync(id);
+            var ingressoTemp = await _context.Ingresso.FindAsync(id);
 
-            if (usuarioTemp is null) return NotFound();
-            _context.Kit.Remove(usuarioTemp);
+            if (ingressoTemp is null) return NotFound();
+            _context.Ingresso.Remove(ingressoTemp);
             await _context.SaveChangesAsync();
             return Ok();
         }

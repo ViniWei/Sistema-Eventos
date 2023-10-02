@@ -14,6 +14,7 @@ namespace Sistema_Eventos.Data
         public DbSet<Plano>? Plano { get; set; }
         public DbSet<Evento>? Evento { get; set; }
         public DbSet<Local>? Local { get; set; }
+        public DbSet<Ingresso>? Ingresso { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlite(@"Data Source=C:\SQlite\SistemaEventos.db");
