@@ -44,12 +44,47 @@ namespace Sistema_Eventos.Controllers
             }
         }
 
-        [HttpPut]
-        [Route("Alterar")]
-        public async Task<IActionResult> Alterar(Produto produto)
+        [HttpPatch]
+        [Route("Alterar/{id}")]
+        public async Task<ActionResult> Alterar(int id, [FromBody] Dictionary<string, object> patch)
         {
-            _context.Update(produto);
+            var produtoTemp = await _context.Produto.FindAsync(id);
+
+            if (produtoTemp is null) return NotFound();
+
+            foreach (var campo in patch)
+            {
+                switch (campo.Key)
+                {
+                    case "nome":
+
+                        produtoTemp.nome = campo.Value.ToString();
+                        break;
+
+                    case "descricao":
+
+                        produtoTemp.descricao = campo.Value.ToString();
+                        break;
+
+                    case "preco":
+
+                        if (int.TryParse(campo.Value.ToString(), out int novoPreco))
+                        {
+                            produtoTemp.preco = novoPreco;
+                        }
+                        else
+                        {
+                            return BadRequest("O preço deve ser um número válido.");
+                        }
+                        break;
+
+                    default:
+                        return BadRequest($"Campo '{campo.Key}' não é suportado.");
+                }
+            }
+
             await _context.SaveChangesAsync();
+
             return Ok();
         }
 
