@@ -63,6 +63,5 @@ namespace Sistema_Eventos.Controllers
             await _context.SaveChangesAsync();
             return Ok();
         }
-
     }
 }

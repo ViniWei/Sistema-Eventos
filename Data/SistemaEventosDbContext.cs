@@ -17,7 +17,6 @@ namespace Sistema_Eventos.Data
         public DbSet<Ingresso>? Ingresso { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            //optionsBuilder.UseSqlite(@"Data Source=C:\SQlite\SistemaEventos.db");
             optionsBuilder.UseSqlite("DataSource=SistemaEventos.db;Cache=Shared;");
         }
     }
