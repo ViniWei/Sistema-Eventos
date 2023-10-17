@@ -28,7 +28,7 @@ namespace Sistema_Eventos.Controllers
         }
 
         [HttpPost]
-        [Route("Insirir")]
+        [Route("Inserir")]
         public async Task<IActionResult> Insirir(Atuante atuante)
         {
             try
@@ -50,6 +50,7 @@ namespace Sistema_Eventos.Controllers
             _context.Update(atuante);
             await _context.SaveChangesAsync();
             return Ok();
+
         }
 
         [HttpDelete]

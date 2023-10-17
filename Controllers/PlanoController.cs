@@ -3,6 +3,7 @@ using Sistema_Eventos.Models;
 using Sistema_Eventos.Data;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
+using System.Numerics;
 
 namespace Sistema_Eventos.Controllers
 {
@@ -44,12 +45,47 @@ namespace Sistema_Eventos.Controllers
             }
         }
 
-        [HttpPut]
-        [Route("Alterar")]
-        public async Task<IActionResult> Alterar(Plano plano)
+        [HttpPatch]
+        [Route("Alterar/{id}")]
+        public async Task<ActionResult> Alterar(int id, [FromBody] Dictionary<string, object> patch)
         {
-            _context.Update(plano);
+            var planoTemp = await _context.Plano.FindAsync(id);
+
+            if (planoTemp is null) return NotFound();
+
+            foreach (var campo in patch)
+            {
+                switch (campo.Key)
+                {
+                    case "nome":
+
+                        planoTemp.nome = campo.Value.ToString();
+                        break;
+
+                    case "descricao":
+
+                        planoTemp.descricao = campo.Value.ToString();
+                        break;
+
+                    case "preco":
+
+                        if (int.TryParse(campo.Value.ToString(), out int novoPreco))
+                        {
+                            planoTemp.preco = novoPreco;
+                        }
+                        else
+                        {
+                            return BadRequest("O preço deve ser um número válido.");
+                        }
+                        break;
+
+                    default:
+                        return BadRequest($"Campo '{campo.Key}' não é suportado.");
+                }
+            }
+
             await _context.SaveChangesAsync();
+
             return Ok();
         }
 
