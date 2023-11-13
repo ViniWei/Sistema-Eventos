@@ -13,7 +13,6 @@ namespace Sistema_Eventos.Data
         public DbSet<Usuario>? Usuario { get; set; }
         public DbSet<Plano>? Plano { get; set; }
         public DbSet<Evento>? Evento { get; set; }
-        public DbSet<Local>? Local { get; set; }
         public DbSet<Ingresso>? Ingresso { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

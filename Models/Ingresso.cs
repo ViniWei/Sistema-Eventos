@@ -1,9 +1,15 @@
-﻿namespace Sistema_Eventos.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Sistema_Eventos.Models
 {
     public class Ingresso
     {
-        public int id { get; set; }
-        public float preco { get; set; }
-        public Evento ?Evento { get; set; }
+        [Key]
+        public int Id { get; set; }
+        public float? Preco { get; set; }
+        public int? EventoId { get; set; }
+        public Evento? Evento { get; set; }
+        public int? UsuarioId { get; set; }
+        public Usuario? Usuario { get; set; }
     }
-}
+} 

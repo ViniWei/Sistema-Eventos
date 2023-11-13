@@ -8,6 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddDbContext<SistemaEventosDbContext>();
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddCors();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
@@ -19,7 +20,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-
+app.UseCors(opcoes => opcoes.AllowAnyOrigin().AllowAnyHeader());
 
 app.UseHttpsRedirection();
 

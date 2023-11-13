@@ -58,19 +58,19 @@ namespace Sistema_Eventos.Controllers
                 {
                     case "nome":
 
-                        produtoTemp.nome = campo.Value.ToString();
+                        produtoTemp.Nome = campo.Value.ToString();
                         break;
 
                     case "descricao":
 
-                        produtoTemp.descricao = campo.Value.ToString();
+                        produtoTemp.Descricao = campo.Value.ToString();
                         break;
 
                     case "preco":
 
                         if (int.TryParse(campo.Value.ToString(), out int novoPreco))
                         {
-                            produtoTemp.preco = novoPreco;
+                            produtoTemp.Preco = novoPreco;
                         }
                         else
                         {

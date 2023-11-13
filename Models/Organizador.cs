@@ -4,15 +4,10 @@ namespace Sistema_Eventos.Models
 {
     public class Organizador
     {
+        [Key]
         public int Id { get; set; }
-        public string nome { get; set; }
-        public string email { get; set; }
-        public string senha { get; set; }
-        public List<Plano>? planos { get; set; }
-        public List<Produto>? produtos { get; set; }
-        public List<Kit>? kits { get; set; }
-        public List<Atuante>? atuantes { get; set; }
-        public List<Local>? locais { get; set; }
-
+        public string? Nome { get; set; }
+        public string? Email { get; set; }
+        public string? Senha { get; set; }
     }
 }
