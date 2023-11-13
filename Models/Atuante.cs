@@ -2,7 +2,8 @@
 {
     public class Atuante
     {
-        public int id { get; set; }
-        public string? nome  { get; set; }
+        public int Id { get; set; }
+        public string? Nome  { get; set; }
+        public Evento? Evento { get; set; }
     }
 }
