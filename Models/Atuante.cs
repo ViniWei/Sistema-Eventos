@@ -7,7 +7,7 @@ namespace Sistema_Eventos.Models
         [Key]
         public int Id { get; set; }
         public string? Nome  { get; set; }
-        public int EventoId { get; set; }
+        public int? EventoId { get; set; }
         public Evento? Evento { get; set; }
     }
 }
