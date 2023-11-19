@@ -11,6 +11,7 @@ namespace Sistema_Eventos.Models
         public DateTime? Date { get; set; }
         public string? Endereco { get; set; }
         public int? OrganizadorId { get; set; }
+        public int? IngressosDisponiveis { get; set; }
         public Organizador? Organizador { get; set; }
     }
 }
