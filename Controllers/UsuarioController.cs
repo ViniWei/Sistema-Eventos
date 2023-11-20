@@ -7,7 +7,7 @@ namespace Sistema_Eventos.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class UsuarioController :  ControllerBase
+    public class UsuarioController : ControllerBase
     {
 
         SistemaEventosDbContext? _context;
@@ -38,6 +38,34 @@ namespace Sistema_Eventos.Controllers
                 return Created("", usuario);
             }
             catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        public class LoginRequest
+        {
+            public string Email { get; set; } = "";
+            public string Senha { get; set; } = "";
+        }
+
+        [HttpPost]
+        [Route("Login")]
+        public async Task<ActionResult> Logar([FromBody] LoginRequest Body)
+        {
+            try
+            {
+                List<Usuario> usuarios = await _context.Usuario.ToListAsync();
+
+                List<Usuario> usuarioFinal = usuarios.Where(user => user.Email == Body.Email && user.Senha == Body.Senha).ToList();
+
+                Console.WriteLine();
+                if (usuarioFinal.Count <= 0)
+                {
+                    return Ok(new { Message = "Login negado" });
+                }
+                return Ok(new {Message = "Logado"});
+            } catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
