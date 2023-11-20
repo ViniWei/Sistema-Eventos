@@ -27,6 +27,34 @@ namespace Sistema_Eventos.Controllers
             return await _context.Organizador.ToListAsync();
 
         }
+        public class LoginOrganizadorRequest
+        {
+            public string Email { get; set; } = "";
+            public string Senha { get; set; } = "";
+        }
+
+        [HttpPost]
+        [Route("Login")]
+        public async Task<ActionResult> Logar([FromBody] LoginOrganizadorRequest Body)
+        {
+            try
+            {
+                if (_context.Organizador is null) return NotFound();
+                List<Organizador> organizadores = await _context.Organizador.ToListAsync();
+
+                List<Organizador> usuarioFinal = organizadores.Where(org => org.Email == Body.Email && org.Senha == Body.Senha).ToList();
+
+                Console.WriteLine();
+                if (usuarioFinal.Count <= 0)
+                {
+                    return Ok(new { Message = "Login negado" });
+                }
+                return Ok(new {Message = "Logado"});
+            } catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
         [HttpPost]
         [Route("Inserir")]
