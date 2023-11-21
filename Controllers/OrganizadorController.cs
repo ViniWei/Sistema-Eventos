@@ -49,7 +49,7 @@ namespace Sistema_Eventos.Controllers
                 {
                     return Ok(new { Message = "Login negado" });
                 }
-                return Ok(new {Message = "Logado"});
+                return Ok(new {Message = "Logado", OrganizadorId = usuarioFinal.First().Id, OrganizadorNome = usuarioFinal.First().Nome });
             } catch (Exception ex)
             {
                 return BadRequest(ex.Message);
