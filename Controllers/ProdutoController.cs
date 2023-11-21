@@ -44,8 +44,27 @@ namespace Sistema_Eventos.Controllers
             }
         }
 
+        [HttpPut]
+        [Route("Alterar")]
+        public async Task<IActionResult> Alterar(Produto produto)
+        {
+            try
+            {
+
+                _context.Update(produto);
+                await _context.SaveChangesAsync();
+                return Ok();
+
+            } catch(Exception e)
+            {
+                Console.WriteLine(e);
+                return BadRequest(e.Message);
+            }
+
+        }
+
         [HttpPatch]
-        [Route("Alterar/{id}")]
+        [Route("patch/{id}")]
         public async Task<ActionResult> Alterar(int id, [FromBody] Dictionary<string, object> patch)
         {
             var produtoTemp = await _context.Produto.FindAsync(id);
@@ -92,6 +111,7 @@ namespace Sistema_Eventos.Controllers
         [Route("Excluir/{id}")]
         public async Task<IActionResult> Excluir(int id)
         {
+            Console.WriteLine(id);
             var produtoTemp = await _context.Produto.FindAsync(id);
 
             if (produtoTemp is null) return NotFound();
